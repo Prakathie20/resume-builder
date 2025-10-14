@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Resume Builder</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Professional Resume Builder</h1>
+            <p>Create resumes with AI-powered improvements</p>
+        </header>
+
+        <!-- Warning Message -->
+        <div id="warningMessage" class="warning-message">
+            Please fill in your Name, Email, and Phone number before using AI suggestions.
+        </div>
+
+        <form action="/build-resume" method="POST" class="resume-form" id="resumeForm">
+            <!-- Template Selection -->
+<div class="form-section">
+    <h2>Choose Template</h2>
+    <div class="template-options">
+        <label class="template-option">
+            <input type="radio" name="template" value="praktikis" checked>
+            <div class="template-preview">
+                <div class="preview-header">
+                    <div class="preview-name-line"></div>
+                </div>
+                <div class="preview-content">
+                    <div class="preview-section">
+                        <div class="preview-title-line"></div>
+                        <div class="preview-content-line short"></div>
+                    </div>
+                    <div class="preview-section">
+                        <div class="preview-title-line"></div>
+                        <div class="preview-content-line medium"></div>
+                        <div class="preview-content-line short"></div>
+                    </div>
+                </div>
+            </div>
+            <span>Professional Format</span>
+        </label>
+        
+        <label class="template-option">
+            <input type="radio" name="template" value="modern">
+            <div class="template-preview">
+                <div class="preview-header modern-header"></div>
+                <div class="preview-content">
+                    <div class="preview-content-line short"></div>
+                    <div class="preview-content-line medium"></div>
+                    <div class="preview-content-line long"></div>
+                </div>
+            </div>
+            <span>Modern Style</span>
+        </label>
+        
+        <label class="template-option">
+            <input type="radio" name="template" value="professional">
+            <div class="template-preview">
+                <div class="preview-header professional-header"></div>
+                <div class="preview-content">
+                    <div class="preview-columns">
+                        <div class="preview-column">
+                            <div class="preview-content-line short"></div>
+                            <div class="preview-content-line medium"></div>
+                        </div>
+                        <div class="preview-column">
+                            <div class="preview-content-line medium"></div>
+                            <div class="preview-content-line short"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <span>Corporate Style</span>
+        </label>
+    </div>
+</div>
+
+            <!-- AI Improvement Toggle -->
+            <div class="form-section">
+                <div class="ai-toggle">
+                    <label class="toggle-label">
+                        <input type="checkbox" name="ai_improvement" id="aiImprovement">
+                        <span class="toggle-slider"></span>
+                        <span class="toggle-text">Enable AI-powered content improvement</span>
+                    </label>
+                    <small>Uses AI to enhance your objective, skills, and other sections</small>
+                </div>
+            </div>
+
+            <!-- Personal Information -->
+            <div class="form-section">
+                <h2>Personal Information</h2>
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required placeholder="e.g., Praktikis S">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="text" id="phone" name="phone" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" id="address" name="address" placeholder="Your complete address">
+                </div>
+            </div>
+
+            <!-- Cursor Objective -->
+            <div class="form-section">
+                <h2>Cursor Objective</h2>
+                <div class="form-group">
+                    <label for="objective">Professional Objective</label>
+                    <div class="textarea-with-ai">
+                        <textarea id="objective" name="objective" rows="3" required placeholder="Input to the input vector is a set of extra features or skills, been constructed, and given with the application."></textarea>
+                        <button type="button" class="ai-improve-btn" data-section="objective">AI Improve</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Education -->
+            <div class="form-section">
+                <h2>Education</h2>
+                <div class="form-group">
+                    <label for="education">Educational Background</label>
+                    <textarea id="education" name="education" rows="4" required placeholder="e.g., College of Technology Technique - 2017&#10;American Union, Higher Secondary School - 2017"></textarea>
+                </div>
+            </div>
+
+            <!-- English -->
+            <div class="form-section">
+                <h2>English & Language Skills</h2>
+                <div class="form-group">
+                    <label for="english">Language Proficiency & Training</label>
+                    <textarea id="english" name="english" rows="4" placeholder="e.g.,&#10;Trainer Name: Kristopher Alexander - 2008&#10;Text Title: Galea T. J. Hafny, Psychological Confidence - 2015"></textarea>
+                </div>
+            </div>
+
+            <!-- Technical Skills -->
+            <div class="form-section">
+                <h2>Technical Skills</h2>
+                <div class="form-group">
+                    <label for="skills">Technical Skills & Languages</label>
+                    <div class="textarea-with-ai">
+                        <textarea id="skills" name="skills" rows="4" required placeholder="e.g.,&#10;Programming Languages: Python, Java, SQL&#10;Web Technologies: HTML, CSS, JavaScript&#10;Tools: Git, Docker, Azure"></textarea>
+                        <button type="button" class="ai-improve-btn" data-section="skills">AI Improve</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Area of Interest -->
+            <div class="form-section">
+                <h2>Area of Interest</h2>
+                <div class="form-group">
+                    <label for="interests">Professional Interests</label>
+                    <textarea id="interests" name="interests" rows="3" placeholder="e.g.,&#10;Full Stack Development&#10;Data Science&#10;AI & Machine Learning"></textarea>
+                </div>
+            </div>
+
+            <!-- Certification -->
+            <div class="form-section">
+                <h2>Certification</h2>
+                <div class="form-group">
+                    <label for="certifications">Certifications & Licenses</label>
+                    <textarea id="certifications" name="certifications" rows="3" placeholder="e.g.,&#10;Microsoft Azure AI Fundamentals&#10;AWS Cloud Practitioner"></textarea>
+                </div>
+            </div>
+
+            <!-- Application -->
+            <div class="form-section">
+                <h2>Application</h2>
+                <div class="form-group">
+                    <label for="applications">Projects & Applications</label>
+                    <textarea id="applications" name="applications" rows="3" placeholder="e.g.,&#10;Introduction to Science Level in Science and Research Information"></textarea>
+                </div>
+            </div>
+
+            <!-- Events & Participation -->
+            <div class="form-section">
+                <h2>Events & Participation</h2>
+                <div class="form-group">
+                    <label for="events">Events, Workshops & Participation</label>
+                    <textarea id="events" name="events" rows="3" placeholder="e.g.,&#10;The University of Texas Denton, President of Human Resources College - 2004"></textarea>
+                </div>
+            </div>
+
+            <button type="submit" class="generate-btn">
+                <span class="btn-text">Generate Professional Resume PDF</span>
+                <span class="btn-loading" style="display: none;">Generating...</span>
+            </button>
+        </form>
+    </div>
+
+    <!-- AI Improvement Modal -->
+    <div id="aiModal" class="modal">
+        <div class="modal-content">
+            <h3>AI Content Improvement</h3>
+            <div class="comparison">
+                <div class="original">
+                    <h4>Original</h4>
+                    <div id="originalContent" class="content-box"></div>
+                </div>
+                <div class="improved">
+                    <h4>Improved</h4>
+                    <div id="improvedContent" class="content-box"></div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button id="useImproved" class="btn-primary">Use Improved Version</button>
+                <button id="keepOriginal" class="btn-secondary">Keep Original</button>
+            </div>
+        </div>
+    </div>
+    
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
